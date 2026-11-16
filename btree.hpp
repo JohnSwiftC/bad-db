@@ -31,9 +31,13 @@ private:
       if (key > keys[n_keys - 1])
         insertion_index = n_keys;
 
-      // TBF, have insertion index, just insert. recall that
-      // insertions always occur on a child node with no children
-      // in a btree
+      for (size_t i{n_keys}; i-- > insertion_index;) {
+        keys[i] = keys[i + 1];
+        values[i] = values[i + 1];
+      }
+
+      keys[insertion_index] = std::move(key);
+      values[insertion_index] = std::move(value);
     }
   };
 
